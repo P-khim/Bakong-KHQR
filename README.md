@@ -16,4 +16,4 @@ npm install
 
 BEARER_TOKEN=your_bakong_api_token (get by registering in bakong open api -- https://api-bakong.nbc.gov.kh/register )
 
-npm run dev
+node index.js
