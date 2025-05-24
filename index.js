@@ -59,7 +59,7 @@ const endpoint = `${baseUrl}/v1/check_transaction_by_md5`;
 //   { md5_check },
 //   {
 //     headers: {
-//       Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiOGE4NGE0ODhlMmE3NGI1ZSJ9LCJpYXQiOjE3NDU0ODU2MjAsImV4cCI6MTc1MzI2MTYyMH0.fAvUCoWnKjW8MJtVucodPkuTgGbiNCrjP_bFzHCtRsI`, 
+//       Authorization: `Bearer process.env.BEARER_TOKEN`, 
 //       'Content-Type': 'application/json',
 //     },
 //   }
