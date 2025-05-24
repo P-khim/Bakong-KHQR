@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bakong QR Code</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div id="app">
+    <button id="generateQrBtn">Generate QR</button>
+  </div>
+
+  <!-- Modal -->
+  <div id="qrModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeBtn">&times;</span>
+      <!-- <h2>Scan the QR</h2> -->
+      <div id="qrContainer"></div>
+      <!-- <button id="checkTransactionBtn">Check Transaction</button> -->
+    </div>
+  </div>
+
+  <script>
+    const generateQrBtn = document.getElementById('generateQrBtn');
+    const qrModal = document.getElementById('qrModal');
+    const closeBtn = document.getElementById('closeBtn');
+    const qrContainer = document.getElementById('qrContainer');
+    const checkTransactionBtn = document.getElementById('checkTransactionBtn');
+
+    // Open modal and generate QR
+        generateQrBtn.addEventListener('click', async () => {
+    try {
+        // Fetch the QR data from the backend
+        const response = await fetch('/pay');
+        const data = await response.json();
+
+        // Insert the QR code image into the modal
+        const qrImage = data.qr;
+        const amount = data.amount;
+        // qrContainer.innerHTML = `<img src="${qrImage}" alt="Bakong QR Code">`;
+        qrContainer.innerHTML = `
+            <div class="bakong-container">
+                <div class="bakong-header">KHQR</div>
+                <div class="bakong-content">
+                <p class="company-name">SkillBloom</p>
+                <p class="amount">${amount}<span>USD</span></p>
+                <div class="qr-wrapper">
+                    <img src="${qrImage}" alt="Bakong QR Code" />
+                </div>
+                </div>
+            </div>
+        `;
+
+        // Display the modal
+        qrModal.style.display = 'block';
+    } catch (error) {
+        console.error('Error generating QR:', error);
+    }
+    });
+
+
+    // Close modal
+    closeBtn.addEventListener('click', () => {
+      qrModal.style.display = 'none';
+    });
+
+    // Check transaction
+    checkTransactionBtn.addEventListener('click', async () => {
+      const md5 = "md5_value";  // Use the md5 from the response or set dynamically
+      const response = await fetch('/checkTransaction', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ md5 })
+      });
+
+      const data = await response.json();
+      console.log("Payment Status:", data);
+      if (data.responseCode === 0) {
+        alert("Transaction PAID");
+      } else {
+        alert("Transaction NOT paid: " + data.responseMessage);
+      }
+    });
+  </script>
+</body>
+</html>

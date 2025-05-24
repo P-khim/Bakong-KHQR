@@ -1,0 +1,19 @@
+{
+  "name": "bakong-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "axios": "^1.9.0",
+    "bakong-khqr": "^1.0.7",
+    "express": "^5.1.0",
+    "qrcode": "^1.5.4"
+  }
+}
